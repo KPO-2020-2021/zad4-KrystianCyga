@@ -5,14 +5,15 @@
 #include <iostream>
 #include <stdexcept>
 #include <math.h>
+#include <cassert>
 #define epsilon 0.000001
 
 /*!
  * \file
- * \brief Ten plik powinien zawierać definicję szablonu Wektor<>
+ * \brief Szablon klasy wektor.
+ *  Jest on tablicą wspolrzednych.
  *
- * Ten plik powinien zawierać definicję szablonu Wektor<>.
- * W tym celu należy przerobić definicję klasy Wektor2D.
+ * 
  */
 template <typename T,unsigned int ROZMIAR>
 class Vector
@@ -27,19 +28,19 @@ public:
 
     T dlugosc(const Vector &drugi);
 
-    Vector operator+(const Vector &v);
+    Vector<T,ROZMIAR> operator+(const Vector<T,ROZMIAR> &v);
 
-    Vector operator-(const Vector &v);
+    Vector<T,ROZMIAR> operator-(const Vector<T,ROZMIAR> &v);
 
-    Vector operator*(const T &tmp);
+    Vector<T,ROZMIAR> operator*(const T &tmp);
 
-    Vector operator/(const T &tmp);
+    Vector<T,ROZMIAR> operator/(const T &tmp);
 
-    const T &operator[](int index) const;
+    T operator[](unsigned int index) const {assert(index<ROZMIAR);return wspolrzedne[index];};
 
-    T &operator[](int index);
+    T &operator[](unsigned int index) {assert(index<ROZMIAR);return wspolrzedne[index];};
 
-    bool operator==(const Vector &drugi) const;
+    bool operator==(const Vector<T,ROZMIAR> &drugi) const;
 
     void zapeln(T argu[ROZMIAR]);
 
@@ -48,15 +49,14 @@ public:
 
 /*!
  * \brief Przeciazenie operatora >>
- *                                                  
- *  Argumenty:                                                                
- *      in - strumien wyjsciowy,                                              
- *      tmp - wektor.  
+ *                                                                               
+ *      \param[in] in strumien wyjsciowy                                              
+ *      \param[in] tmp  wektor  
  */
 template <typename T,unsigned int ROZMIAR>
 inline std::istream &operator>>(std::istream &in, Vector<T,ROZMIAR> &tmp)
 {
-    for (int i = 0; i < ROZMIAR; ++i)
+    for (unsigned int i = 0; i < ROZMIAR; ++i)
     {
         in >> tmp[i];
     }
@@ -66,14 +66,14 @@ inline std::istream &operator>>(std::istream &in, Vector<T,ROZMIAR> &tmp)
 
 /*!
  * \brief Przeciazenie operatora <<                                                  
- *  Argumenty:                                                                
- *      out - strumien wejsciowy,                                             
- *      tmp - wektor
+ *                                                                 
+ *      \param[in] out  strumien wejsciowy                                             
+ *      \param[in] tmp  wektor
  */
 template <typename T,unsigned int ROZMIAR>
 inline std::ostream &operator<<(std::ostream &out, const Vector<T,ROZMIAR> &tmp)
 {
-    for (int i = 0; i < ROZMIAR; ++i)
+    for (unsigned int i = 0; i < ROZMIAR; ++i)
     {
         out << tmp[i] << " ";
     }
@@ -81,12 +81,9 @@ inline std::ostream &operator<<(std::ostream &out, const Vector<T,ROZMIAR> &tmp)
 }
 
 /*!
- * \brief Konstruktor klasy Vector
- *
- *  Argumenty:                                                                
- *      Brak argumentow.                                                      
- *  Zwraca:                                                                   
- *      Tablice wypelniona wartoscia 0. 
+ * \brief Konstruktor klasy Vector.
+ *                                                                   
+ *      \ Wypelnia on wektor zerami 
  */
 template <typename T,unsigned int ROZMIAR>
 Vector<T,ROZMIAR>::Vector()
@@ -101,11 +98,10 @@ Vector<T,ROZMIAR>::Vector()
 
 /*!
  * \brief Konstruktor parametryczny klasy Vector
- *
- *  Argumenty:                                                                
- *      Tablica typu t.                                                       
- *  Zwraca:                                                                   
- *      Tablice wypelniona wartoscia tablicy. 
+ *                                                                
+ *      \param[in] Tablica typu t.                                                       
+ *                                                                     
+ *     \return Tablice  wypelniona wartoscia tablicy
  */
 template <typename T,unsigned int ROZMIAR>
 Vector<T,ROZMIAR>::Vector(T tmp[ROZMIAR])
@@ -118,46 +114,27 @@ Vector<T,ROZMIAR>::Vector(T tmp[ROZMIAR])
 
 /*!
  * \brief Metoda zwracająca dlugosc wektora
- *
- *  Argumenty:                                                                
- *      Wektor                                                                
- *  Zwraca:                                                                   
- *      Dlugosc wektora 
+ *                                                               
+ *      \param[in] Wektor                                                                                                                                   
+ *      \return Dlugosc wektora 
  */
 template <typename T,unsigned int ROZMIAR>
 T Vector<T,ROZMIAR>::dlugosc(const Vector<T,ROZMIAR> &drugi)
 {
     T tmp;
-    for (int i = 0; i < ROZMIAR; i++)
+    for (unsigned int i = 0; i < ROZMIAR; i++)
     {
         tmp += pow(drugi.wspolrzedne[i] - this->wspolrzedne[i], 2);
     }
     return sqrt(tmp);
 }
 
-/*!
- * \brief Metoda zwracająca wspolrzedna wektora
- *
- *  Argumenty:                                                                
- *      Wektor                                                                
- *  Zwraca:                                                                   
- *      Wspolrzedna 
- */
-template <typename T,unsigned int ROZMIAR>
-const T &Vector<T,ROZMIAR>::operator[](int index) const
-{
-    if (index < 0 ** index >= ROZMIAR)
-    {
-        std::out_of_range("Error: Vektor jest poza zasiegiem");
-    }
-    return wspolrzedne[index];
-}
+
 /*!
  * \brief Operator porownania
- *  Argumenty:                                                                
- *      Wektory                                                               
- *  Zwraca:                                                                   
- *      bool 
+ *                                                                 
+ *     \param[in] Wektory                                                                                                                                  
+ *     \return bool 
  */
 template <typename T,unsigned int ROZMIAR>
 bool Vector<T,ROZMIAR>::operator==(const Vector<T,ROZMIAR> &drugi) const
@@ -176,36 +153,108 @@ bool Vector<T,ROZMIAR>::operator==(const Vector<T,ROZMIAR> &drugi) const
 }
 
 /*!
- * \brief Operator porownania
- *  Argumenty:                                                                
- *      Wektory                                                               
- *  Zwraca:                                                                   
- *      bool                                                                  
+ * \brief Zapelnia wektor tablica typu T
+ *                                                                                                                                   
  */
 template <typename T,unsigned int ROZMIAR>
 void Vector<T,ROZMIAR>::zapeln(T argu[ROZMIAR])
 {
-    for (int i = 0; i < ROZMIAR; i++)
+    for (unsigned int i = 0; i < ROZMIAR; i++)
     {
        wspolrzedne[i]=argu[i]; 
     }
 }
 /*!
  * \brief Oblicza modul
- *  Argumenty:                                                                
- *      Wektor                                                               
- *  Zwraca:                                                                   
- *      modul                                                                  
+ *                                                                  
+ *     \param[in] Wektor                                                               
+ *                                                                     
+ *     \return modul                                                                  
  */
 template <typename T,unsigned int ROZMIAR>
 T Vector<T,ROZMIAR>::modul()
 {   
     T tmp;
-    for(int i=0;i<ROZMIAR;i++)
+    for(unsigned int i=0;i<ROZMIAR;i++)
     {
         tmp+=(wspolrzedne[i] * wspolrzedne[i]);
     }
     return sqrt(tmp);
 }
+
+/*!
+ * \brief Oblicza sume wektorow
+ *                                                                  
+ *     \param[in] Wektory this i v                                                               
+ *                                                                     
+ *     \return Sume wektorow                                                                  
+ */
+template <typename T,unsigned int ROZMIAR>
+Vector<T,ROZMIAR> Vector<T,ROZMIAR>::operator+(const Vector<T,ROZMIAR> &v)
+{
+    Vector result;
+    for (unsigned int i = 0; i < ROZMIAR; ++i)
+    {
+        result[i] = wspolrzedne[i] += v[i];
+    }
+    return result;
+}
+/*!
+ * \brief Oblicza roznice wektorow
+ *                                                                  
+ *     \param[in] Wektory this i v                                                               
+ *                                                                     
+ *     \return Roznice wektorow                                                                  
+ */
+template <typename T,unsigned int ROZMIAR>
+Vector<T,ROZMIAR> Vector<T,ROZMIAR>::operator-(const Vector<T,ROZMIAR> &v)
+{
+    Vector result;
+    for (unsigned int i = 0; i < ROZMIAR; ++i)
+    {
+        result[i] = wspolrzedne[i] -= v[i];
+    }
+    return result;
+}
+
+/*!
+ * \brief Oblicza iloczyn wektorow
+ *                                                                  
+ *     \param[in] Wektory this i tmp                                                               
+ *                                                                     
+ *     \return iloczyn wektorow                                                                  
+ */
+template <typename T,unsigned int ROZMIAR>
+Vector<T,ROZMIAR> Vector<T,ROZMIAR>::operator*(const T &tmp)
+{
+    Vector result;
+    for (unsigned int i = 0; i < ROZMIAR; ++i)
+    {
+        result[i] = wspolrzedne[i] *= tmp;
+    }
+    return result;
+}
+
+/*!
+ * \brief Oblicza iloczyn wektorow
+ *                                                                  
+ *     \param[in] Wektor                                                              
+ *     \param[in] stala                                                               
+ *     \return Iloczyn wektora przez stala                                                                 
+ */
+template <typename T,unsigned int ROZMIAR>
+Vector<T,ROZMIAR> Vector<T,ROZMIAR>::operator/(const T &tmp)
+{
+    Vector result;
+    
+    for (unsigned int i = 0; i < ROZMIAR; ++i)
+    {
+        result[i] = wspolrzedne[i] / tmp;
+    }
+
+    return result;
+}
+
+
 
 #endif

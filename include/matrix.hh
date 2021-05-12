@@ -12,10 +12,8 @@
 
 /*!
  * \file
- * \brief Definicja Szablonu macierz
- *  
- *  Jest ona postaci tablicy dwuwymiarowej
- *  
+ * \brief Definicja Szablonu macierz.
+ *  Jest ona postaci tablicy dwuwymiarowej.
  */
 template <int WYMIAR>
 class Matrix{
@@ -48,11 +46,8 @@ class Matrix{
 
 
 /*!*****************************************************************************
- |  \brief Konstruktor klasy Matrix.                                                 |
- |  Argumenty:                                                                |
- |      Brak argumentow.                                                      |
- |  Zwraca:                                                                   |
- |      Macierz wypelnione wartoscia 0.                                       |
+ *  \brief Konstruktor klasy Matrix.                              
+ *                                                                                                                                                                                  
  */
 template <int WYMIAR>
 Matrix<WYMIAR>::Matrix()
@@ -67,11 +62,11 @@ Matrix<WYMIAR>::Matrix()
 }
 
 /*!*****************************************************************************
- | \brief Konstruktor parametryczny klasy Matrix.                                   |
- |  Argumenty:                                                                |
- |      tmp - dwuwymiarowa tablica z elementami typu double.                  |
- |  Zwraca:                                                                   |
- |      Macierz wypelniona wartosciami podanymi w argumencie.                 |
+ * \brief Konstruktor parametryczny klasy Matrix.                              
+ *                                                           
+ *     \param[in]  tmp - dwuwymiarowa tablica z elementami typu double.             
+ *                                                                  
+ *     \return Macierz wypelniona wartosciami podanymi w argumencie.              
  */
 template <int WYMIAR>
 Matrix<WYMIAR>::Matrix(double tmp[WYMIAR][WYMIAR])
@@ -86,12 +81,12 @@ Matrix<WYMIAR>::Matrix(double tmp[WYMIAR][WYMIAR])
 }
 
 /*!*****************************************************************************
- |  \brief Realizuje mnozenie macierzy przez wektor.                                 |
- |  Argumenty:                                                                |
- |      this - macierz, czyli pierwszy skladnik mnozenia,                     |
- |      v - wektor, czyli drugi skladnik mnozenia.                            |
- |  Zwraca:                                                                   |
- |      Iloczyn dwoch skladnikow przekazanych jako wektor.                    |
+ *  \brief Realizuje mnozenie macierzy przez wektor.                              
+ *                                                                 
+ *     \param[in] this - macierz, czyli pierwszy skladnik mnozenia,                     
+ *     \param[in] v - wektor, czyli drugi skladnik mnozenia.                            
+ *                                                                     
+ *     \return Iloczyn dwoch skladnikow przekazanych jako wektor.                   
  */
 template <int WYMIAR>
 Vector<double,WYMIAR> Matrix<WYMIAR>::operator*(Vector<double,WYMIAR> tmp)
@@ -108,12 +103,12 @@ Vector<double,WYMIAR> Matrix<WYMIAR>::operator*(Vector<double,WYMIAR> tmp)
 }
 
 /*!*****************************************************************************
- |  \brief Funktor macierzy                                                          |
- |  Argumenty:                                                                |
- |      row - numer wiersza.                                                  |
- |      column - numer kolumny.                                               |
- |  Zwraca:                                                                   |
- |      Wartosc macierzy w danym miejscu tablicy.                             |
+ *  \brief Funktor macierzy                                                          
+ *                                                                  
+ *     \param[in] row - numer wiersza.                                                  
+ *     \param[in] column - numer kolumny.                                               
+ *                                                                    
+ *     \return Wartosc macierzy w danym miejscu tablicy.                             
  */
 template <int WYMIAR>
 double &Matrix<WYMIAR>::operator()(unsigned int row, unsigned int column)
@@ -133,12 +128,12 @@ double &Matrix<WYMIAR>::operator()(unsigned int row, unsigned int column)
 }
 
 /*!*****************************************************************************
- |  \brief Funktor macierzy                                                          |
- |  Argumenty:                                                                |
- |      row - numer wiersza.                                                  |
- |      column - numer kolumny.                                               |
- |  Zwraca:                                                                   |
- |      Wartosc macierzy w danym miejscu tablicy jako stala.                  |
+ *  \brief Funktor macierzy                                                          
+ *                                                                 
+ *     \param[in] row - numer wiersza.                                                  
+ *     \param[in] column - numer kolumny.                                               
+ *                                                                   
+ *    \return  Wartosc macierzy w danym miejscu tablicy jako stala.                  
  */
 template <int WYMIAR>
 const double &Matrix<WYMIAR>::operator()(unsigned int row, unsigned int column) const
@@ -158,12 +153,12 @@ const double &Matrix<WYMIAR>::operator()(unsigned int row, unsigned int column) 
 }
 
 /*! *****************************************************************************
- |  \brief Przeciążenie dodawania macierzy                                           |
- |  Argumenty:                                                                |
- |      this - macierz, czyli pierwszy skladnik dodawania,                    |
- |      tmp - macierz czyli drugi skladnik dodawania.                           |
- |  Zwraca:                                                                   |
- |      Macierz - sume macierzy.                            |
+ *  \brief Przeciążenie dodawania macierzy                                           
+ *                                                                  
+ *     \param[in] this - macierz, czyli pierwszy skladnik dodawania,                    
+ *     \param[in] tmp - macierz czyli drugi skladnik dodawania.                           
+ *                                                                     
+ *     \param[in] Macierz - sume macierzy.                            
  */
 template <int WYMIAR>
 Matrix<WYMIAR> Matrix<WYMIAR>::operator+(Matrix<WYMIAR> tmp)
@@ -180,10 +175,10 @@ Matrix<WYMIAR> Matrix<WYMIAR>::operator+(Matrix<WYMIAR> tmp)
 }
 
 /*! *****************************************************************************
- |  \brief Przeciazenie operatora >>                                                 |
- |  Argumenty:                                                                |
- |      in - strumien wyjsciowy,                                              |
- |      mat - macierz.                                                        |
+ *  \brief Przeciazenie operatora >>                                                 
+ *                                                                  
+ *    \param[in]  in - strumien wyjsciowy,                                              
+ *    \param[in]  mat - macierz.                                                        
  */
 template <int WYMIAR>
 std::istream &operator>>(std::istream &in, Matrix<WYMIAR> &mat)
@@ -199,10 +194,10 @@ std::istream &operator>>(std::istream &in, Matrix<WYMIAR> &mat)
 }
 
 /*! *****************************************************************************
- |  \brief Przeciazenie operatora <<                                                 |
- |  Argumenty:                                                                |
- |      out - strumien wejsciowy,                                             |
- |      mat - macierz.                                                        |
+ *  \brief Przeciazenie operatora <<                                                 
+ *                                                                  
+ *    \param[in]  out - strumien wejsciowy,                                             
+ *    \param[in] mat - macierz.                                                        
  */
 template <int WYMIAR>
 std::ostream &operator<<(std::ostream &out, const Matrix<WYMIAR> &mat)
@@ -211,7 +206,7 @@ std::ostream &operator<<(std::ostream &out, const Matrix<WYMIAR> &mat)
     {
         for (int j = 0; j < WYMIAR; ++j)
         {
-            out << "| " << mat(i, j) << " | "; //warto ustalic szerokosc wyswietlania dokladnosci liczb
+            out << "* " << mat(i, j) << " * "; //warto ustalic szerokosc wyswietlania dokladnosci liczb
         }
         std::cout << std::endl;
     }
@@ -219,11 +214,11 @@ std::ostream &operator<<(std::ostream &out, const Matrix<WYMIAR> &mat)
 }
 
 /*! *****************************************************************************
- |  \brief Tworzy macierz obrotu  2D                                                 |
- |  Argumenty:                                                              |
- |      kat - kat obrotu,                                                   |
- |  Zwraca:                                                                 |
- |      Macierz obrotu                                                      |
+ *  \brief Tworzy macierz obrotu  2D                                                 
+ *                                                                
+ *    \param[in]  kat - kat obrotu,                                                   
+ *                                                                   
+ *     \return Macierz obrotu                                                      
  */
 template <int WYMIAR>
 Matrix<WYMIAR> Matrix<WYMIAR>::Mobrot2D_tworzenie(int kat)
@@ -237,12 +232,12 @@ Matrix<WYMIAR> Matrix<WYMIAR>::Mobrot2D_tworzenie(int kat)
 }
 
 /*! *****************************************************************************
- |  \brief Tworzy macierz obrotu  3D                                                 |
- |  Argumenty:                                                              |
- |      kat - kat obrotu,                                                   |
- *      os - os obrotu
- |  Zwraca:                                                                 |
- |      Macierz obrotu                                                      |
+ *  \brief Tworzy macierz obrotu  3D                                                 
+ *                                                                
+ *     \param[in] kat - kat obrotu,                                                   
+ *     \param[in]  os - os obrotu
+ *                                                                   
+ *     \return Macierz obrotu                                                      
  */
 template <int WYMIAR>
 Matrix<WYMIAR> Matrix<WYMIAR>::Mobrot3D_tworzenie(int kat,char os)
@@ -300,10 +295,10 @@ Matrix<WYMIAR> Matrix<WYMIAR>::Mobrot3D_tworzenie(int kat,char os)
 }
 /*!
  * \brief Operator porownania
- *  Argumenty:                                                                
- *      Macierze                                                               
- *  Zwraca:                                                                   
- *      bool 
+ *                                                                  
+ *     \param[in] Macierze                                                               
+ *                                                                     
+ *    \return  bool 
  */
 template <int WYMIAR>
 bool Matrix<WYMIAR>::operator==(const Matrix<WYMIAR> &tmp) const
@@ -325,11 +320,11 @@ bool Matrix<WYMIAR>::operator==(const Matrix<WYMIAR> &tmp) const
 }
 
 /*!*****************************************************************************
- |  \brief Metoda liczenia wyznacznika Gaussem                                       |
- |  Argumenty:                                                                |
- |      Macierz                                                               |
- |  Zwraca:                                                                   |
- |      Wyznacznik typu double                                                |
+ *  \brief Metoda liczenia wyznacznika Gaussem                                       
+ *                                                             
+ *     \param[in] Macierz                                                               
+ *                                                                     
+ *    \return  Wyznacznik typu double                                                
  */
 template <int WYMIAR>
 double Matrix<WYMIAR>::gauss()
