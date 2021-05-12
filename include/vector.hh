@@ -106,7 +106,7 @@ Vector<T,ROZMIAR>::Vector()
 template <typename T,unsigned int ROZMIAR>
 Vector<T,ROZMIAR>::Vector(T tmp[ROZMIAR])
 {
-    for (int i = 0; i < ROZMIAR; ++i)
+    for (unsigned int i = 0; i < ROZMIAR; ++i)
     {
         wspolrzedne[i] = tmp[i];
     }
@@ -140,7 +140,7 @@ template <typename T,unsigned int ROZMIAR>
 bool Vector<T,ROZMIAR>::operator==(const Vector<T,ROZMIAR> &drugi) const
 {
     int tmp = 0;
-    for (int i = 0; i < ROZMIAR; ++i)
+    for (unsigned int i = 0; i < ROZMIAR; ++i)
     {
         tmp += (int)(abs(wspolrzedne[i] - drugi.wspolrzedne[i]) <= epsilon);
     }

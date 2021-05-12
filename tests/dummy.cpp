@@ -6,5 +6,5 @@
 
 TEST_CASE("complicated integration tests could be here")
 {
-  CHECK( true);
+  CHECK(true);
 }
