@@ -69,8 +69,6 @@ std::ofstream &operator<<(std::ofstream &of, Prostopadloscian<double> const &pro
     return of;
 }
 
-/*std::ifstream &operator>>(std::istream &in, Prostopadloscian<double> &prost); */
-
 /*!
  * \brief Konstruktor klasy Prostopadloscian
  */

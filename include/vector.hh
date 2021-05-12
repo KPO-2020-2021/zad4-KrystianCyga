@@ -28,13 +28,13 @@ public:
 
     T dlugosc(const Vector &drugi);
 
-    Vector<T,ROZMIAR> operator+(const Vector<T,ROZMIAR> &v);
+    Vector operator+(const Vector<T,ROZMIAR> &v);
 
-    Vector<T,ROZMIAR> operator-(const Vector<T,ROZMIAR> &v);
+    Vector operator-(const Vector<T,ROZMIAR> &v);
 
-    Vector<T,ROZMIAR> operator*(const T &tmp);
+    Vector operator*(const T &tmp);
 
-    Vector<T,ROZMIAR> operator/(const T &tmp);
+    Vector operator/(const T &tmp);
 
     T operator[](unsigned int index) const {assert(index<ROZMIAR);return wspolrzedne[index];};
 
