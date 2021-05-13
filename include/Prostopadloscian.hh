@@ -178,9 +178,9 @@ void Prostopadloscian<double>::boki()
   C2 = wektor[2].dlugosc(wektor[4]);
   C3 = wektor[3].dlugosc(wektor[5]);
 
-  std::cout.precision(15);
+  
 
-  std::string dlugosc1, dlugosc2, dlugosc3;
+  std::string dlugosc1= "Poprzeczne", dlugosc2= "Krotsze", dlugosc3= "Dluzsze";
 
   if (A0 > B0 && A0 > C0)
   {
@@ -224,33 +224,35 @@ void Prostopadloscian<double>::boki()
       dlugosc1 = "Krotsze";
     }
   }
-
+  
   if ((abs(A0 - A1) < epsilon) && (abs(A0 - A2) < epsilon) && (abs(A0 - A3) < epsilon))
   {
     std::cout << "  " << dlugosc1 << " boki sa sobie rowne.\n";
   }
+  
+  std::cout<<std::fixed<<std::setprecision(10);
   std::cout << "   Dlugosc pierwszego boku: " << A0 << "\n";
-  std::cout << "   Dlugosc drugiego boku: " << A1 << "\n";
-  std::cout << "   Dlugosc trzeciego boku: " << A2 << "\n";
-  std::cout << "   Dlugosc czwartego boku: " << A3 << "\n";
+  std::cout << "   Dlugosc drugiego boku:   " << A1 << "\n";
+  std::cout << "   Dlugosc trzeciego boku:  " << A2 << "\n";
+  std::cout << "   Dlugosc czwartego boku:  " << A3 << "\n";
 
   if ((abs(B0 - B1) < epsilon) && (abs(B0 - B2) < epsilon) && (abs(B0 - B3) < epsilon))
   {
     std::cout << "  " << dlugosc2 << " boki sa sobie rowne.\n";
   }
   std::cout << "   Dlugosc pierwszego boku: " << B0 << "\n";
-  std::cout << "   Dlugosc drugiego boku: " << B1 << "\n";
-  std::cout << "   Dlugosc trzeciego boku: " << B2 << "\n";
-  std::cout << "   Dlugosc czwartego boku: " << B3 << "\n";
+  std::cout << "   Dlugosc drugiego boku:   " << B1 << "\n";
+  std::cout << "   Dlugosc trzeciego boku:  " << B2 << "\n";
+  std::cout << "   Dlugosc czwartego boku:  " << B3 << "\n";
 
   if ((abs(C0 - C1) < epsilon) && (abs(C0 - C2) < epsilon) && (abs(C0 - C3) < epsilon))
   {
     std::cout << "  " << dlugosc3 << " boki sa sobie rowne.\n";
   }
   std::cout << "   Dlugosc pierwszego boku: " << C0 << "\n";
-  std::cout << "   Dlugosc drugiego boku: " << C1 << "\n";
-  std::cout << "   Dlugosc trzeciego boku: " << C2 << "\n";
-  std::cout << "   Dlugosc czwartego boku: " << C3 << "\n";
+  std::cout << "   Dlugosc drugiego boku:   " << C1 << "\n";
+  std::cout << "   Dlugosc trzeciego boku:  " << C2 << "\n";
+  std::cout << "   Dlugosc czwartego boku:  " << C3 << "\n";
 }
 /*!
  * \brief Metoda zapisu Prostopadloscianu do pliku

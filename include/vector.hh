@@ -121,7 +121,7 @@ Vector<T,ROZMIAR>::Vector(T tmp[ROZMIAR])
 template <typename T,unsigned int ROZMIAR>
 double Vector<T,ROZMIAR>::dlugosc(const Vector<double,ROZMIAR> &drugi) const
 {
-    double tmp;
+    double tmp=0;
     for (unsigned int i = 0; i < ROZMIAR; i++)
     {
         tmp += pow(drugi.wspolrzedne[i] - this->wspolrzedne[i], 2);
