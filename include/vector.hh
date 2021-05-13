@@ -26,7 +26,7 @@ public:
 
     Vector(T[ROZMIAR]);
 
-    T dlugosc(const Vector &drugi);
+    double dlugosc(const Vector<double,ROZMIAR> &drugi) const ;
 
     Vector operator+(const Vector<T,ROZMIAR> &v);
 
@@ -119,9 +119,9 @@ Vector<T,ROZMIAR>::Vector(T tmp[ROZMIAR])
  *      \return Dlugosc wektora 
  */
 template <typename T,unsigned int ROZMIAR>
-T Vector<T,ROZMIAR>::dlugosc(const Vector<T,ROZMIAR> &drugi)
+double Vector<T,ROZMIAR>::dlugosc(const Vector<double,ROZMIAR> &drugi) const
 {
-    T tmp;
+    double tmp;
     for (unsigned int i = 0; i < ROZMIAR; i++)
     {
         tmp += pow(drugi.wspolrzedne[i] - this->wspolrzedne[i], 2);

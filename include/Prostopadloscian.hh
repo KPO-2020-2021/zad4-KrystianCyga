@@ -24,13 +24,11 @@ public:
   Prostopadloscian();
   void boki();
   Prostopadloscian obrot(const double kat, const unsigned int ilosc, const int os);
-  Vector<double, 3> operator[](const int punkt)const;
+  Vector<double, 3> operator[](const int punkt) const;
   Vector<double, 3> &operator[](const int punkt);
   bool zapis(const std::string &nazwa) const;
   bool owektor(Vector<double, 3> &wek);
   bool wczytaj(const std::string &nazwa);
-
-
 };
 
 /*!
@@ -65,18 +63,18 @@ Vector<double, 3> Prostopadloscian<double>::operator[](const int punkt) const
  */
 std::ostream &operator<<(std::ostream &out, Prostopadloscian<double> const &prost)
 {
-    out<<std::fixed<<std::setprecision(10);
-    for (unsigned int i = 0; i < 8; i++)
+  out << std::fixed << std::setprecision(10);
+  for (unsigned int i = 0; i < 8; i++)
+  {
+    out << prost[i] << std::endl;
+    if ((i + 1) % 2 == 0)
     {
-        out << prost[i] << std::endl;
-        if((i+1)%2==0)
-        {
-          out<<std::endl;
-        }
+      out << std::endl;
     }
-    out << prost[0]<<std::endl;
-    out << prost[1]<<std::endl;
-    return out;
+  }
+  out << prost[0] << std::endl;
+  out << prost[1] << std::endl;
+  return out;
 }
 
 /*!
@@ -88,16 +86,16 @@ std::ostream &operator<<(std::ostream &out, Prostopadloscian<double> const &pros
  */
 std::ofstream &operator<<(std::ofstream &of, Prostopadloscian<double> const &prost)
 {
-    of << std::setprecision(10) << std::fixed;
-    for (unsigned int i = 0; i < 8; i++)
+  of << std::setprecision(10) << std::fixed;
+  for (unsigned int i = 0; i < 8; i++)
+  {
+    of << prost[i] << std::endl;
+    if ((i + 1) % 2 == 0)
     {
-        of << prost[i] << std::endl;
-        if((i+1)%2==0)
-        {
-          of<<std::endl;
-        }
+      of << std::endl;
     }
-    return of;
+  }
+  return of;
 }
 
 /*!
@@ -106,19 +104,29 @@ std::ofstream &operator<<(std::ofstream &of, Prostopadloscian<double> const &pro
 template <>
 Prostopadloscian<double>::Prostopadloscian()
 {
-  int m = 0;
-  for (double i = 0; i < 2; ++i)
-  {
-    for (double j = 0; j < 2; ++j)
-    {
-      for (double k = 0; k < 2; ++k)
-      {
-        double tab[3] = {i, j,k};
-        this->wektor[m].zapeln(tab);
-        m++;
-      }
-    }
-  }
+  double tab[3] = {0, 0, 1};
+  this->wektor[0].zapeln(tab);
+
+  double tab1[3] = {0, 0, 0};
+  this->wektor[1].zapeln(tab1);
+
+  double tab2[3] = {1, 0, 1};
+  this->wektor[2].zapeln(tab2);
+
+  double tab3[3] = {1, 0, 0};
+  this->wektor[3].zapeln(tab3);
+
+  double tab4[3] = {1, 1, 1};
+  this->wektor[4].zapeln(tab4);
+
+  double tab5[3] = {1, 1, 0};
+  this->wektor[5].zapeln(tab5);
+
+  double tab6[3] = {0, 1, 1};
+  this->wektor[6].zapeln(tab6);
+
+  double tab7[3] = {0, 1, 0};
+  this->wektor[7].zapeln(tab7);
 }
 
 /*!
@@ -152,24 +160,23 @@ Prostopadloscian<double> Prostopadloscian<double>::obrot(const double kat, const
  * Wyswietla ona te dlugosci i okresla czy sa rowne.
  *      \param[in] this Prostopadloscian 
  */
-template<>
+template <>
 void Prostopadloscian<double>::boki()
 {
   double A0, A1, A2, A3, B0, B1, B2, B3, C0, C1, C2, C3;
-  std::cout<<"COS DZIALA";
 
   A0 = wektor[0].dlugosc(wektor[1]);
   A1 = wektor[2].dlugosc(wektor[3]);
   A2 = wektor[4].dlugosc(wektor[5]);
   A3 = wektor[6].dlugosc(wektor[7]);
-  B0 = wektor[1].dlugosc(wektor[2]);
-  B1 = wektor[0].dlugosc(wektor[3]);
-  B2 = wektor[5].dlugosc(wektor[6]);
-  B3 = wektor[4].dlugosc(wektor[7]);
-  C0 = wektor[0].dlugosc(wektor[4]);
-  C1 = wektor[1].dlugosc(wektor[5]);
-  C2 = wektor[2].dlugosc(wektor[6]);
-  C3 = wektor[3].dlugosc(wektor[7]);
+  B0 = wektor[1].dlugosc(wektor[3]);
+  B1 = wektor[0].dlugosc(wektor[2]);
+  B2 = wektor[5].dlugosc(wektor[7]);
+  B3 = wektor[4].dlugosc(wektor[6]);
+  C0 = wektor[0].dlugosc(wektor[6]);
+  C1 = wektor[1].dlugosc(wektor[7]);
+  C2 = wektor[2].dlugosc(wektor[4]);
+  C3 = wektor[3].dlugosc(wektor[5]);
 
   std::cout.precision(15);
 
@@ -217,31 +224,33 @@ void Prostopadloscian<double>::boki()
       dlugosc1 = "Krotsze";
     }
   }
-  std::cout<<"COS DZIALA2";
+
   if ((abs(A0 - A1) < epsilon) && (abs(A0 - A2) < epsilon) && (abs(A0 - A3) < epsilon))
   {
     std::cout << "  " << dlugosc1 << " boki sa sobie rowne.\n";
-    std::cout << "   Dlugosc pierwszego boku: " << A0 << "\n";
-    std::cout << "   Dlugosc drugiego boku: " << A1 << "\n";
-    std::cout << "   Dlugosc trzeciego boku: " << A2 << "\n";
-    std::cout << "   Dlugosc czwartego boku: " << A3 << "\n";
   }
+  std::cout << "   Dlugosc pierwszego boku: " << A0 << "\n";
+  std::cout << "   Dlugosc drugiego boku: " << A1 << "\n";
+  std::cout << "   Dlugosc trzeciego boku: " << A2 << "\n";
+  std::cout << "   Dlugosc czwartego boku: " << A3 << "\n";
+
   if ((abs(B0 - B1) < epsilon) && (abs(B0 - B2) < epsilon) && (abs(B0 - B3) < epsilon))
   {
-    std::cout << "  " << dlugosc2 << " boki sB sobie rowne.\n";
-    std::cout << "   Dlugosc pierwszego boku: " << B0 << "\n";
-    std::cout << "   Dlugosc drugiego boku: " << B1 << "\n";
-    std::cout << "   Dlugosc trzeciego boku: " << B2 << "\n";
-    std::cout << "   Dlugosc czwartego boku: " << B3 << "\n";
+    std::cout << "  " << dlugosc2 << " boki sa sobie rowne.\n";
   }
+  std::cout << "   Dlugosc pierwszego boku: " << B0 << "\n";
+  std::cout << "   Dlugosc drugiego boku: " << B1 << "\n";
+  std::cout << "   Dlugosc trzeciego boku: " << B2 << "\n";
+  std::cout << "   Dlugosc czwartego boku: " << B3 << "\n";
+
   if ((abs(C0 - C1) < epsilon) && (abs(C0 - C2) < epsilon) && (abs(C0 - C3) < epsilon))
   {
     std::cout << "  " << dlugosc3 << " boki sa sobie rowne.\n";
-    std::cout << "   Dlugosc pierwszego boku: " << C0 << "\n";
-    std::cout << "   Dlugosc drugiego boku: " << C1 << "\n";
-    std::cout << "   Dlugosc trzeciego boku: " << C2 << "\n";
-    std::cout << "   Dlugosc czwartego boku: " << C3 << "\n";
   }
+  std::cout << "   Dlugosc pierwszego boku: " << C0 << "\n";
+  std::cout << "   Dlugosc drugiego boku: " << C1 << "\n";
+  std::cout << "   Dlugosc trzeciego boku: " << C2 << "\n";
+  std::cout << "   Dlugosc czwartego boku: " << C3 << "\n";
 }
 /*!
  * \brief Metoda zapisu Prostopadloscianu do pliku
@@ -250,28 +259,28 @@ void Prostopadloscian<double>::boki()
 *      \param[in] this Prostopadloscian                                                                                                                   
  *     \return poprawnosc operacji                                                              
  */
-template<>
+template <>
 bool Prostopadloscian<double>::zapis(const std::string &nazwa) const
 {
-    std::ofstream plik;
+  std::ofstream plik;
 
-    plik.open(nazwa, std::ofstream::out);
-    if (plik.is_open() == false)
-    {
-        return false;
-    }
+  plik.open(nazwa, std::ofstream::out);
+  if (plik.is_open() == false)
+  {
+    return false;
+  }
 
-    plik << *this;
-    plik << this->wektor[0];
-    plik<<std::endl;  
-    plik << this->wektor[1];
-    if (plik.fail())
-    {
-        plik.close();
-        return false;
-    }
+  plik << *this;
+  plik << this->wektor[0];
+  plik << std::endl;
+  plik << this->wektor[1];
+  if (plik.fail())
+  {
     plik.close();
-    return true;
+    return false;
+  }
+  plik.close();
+  return true;
 }
 /*!
  * \brief Metoda wczytania Prostopadlosscianu z pliku
@@ -280,28 +289,28 @@ bool Prostopadloscian<double>::zapis(const std::string &nazwa) const
  *     \param[in] this Prostopadloscian                                                                                                                
  *     \return poprawnosc operacji                                                              
  */
-template<>
+template <>
 bool Prostopadloscian<double>::wczytaj(const std::string &nazwa)
 {
-    std::fstream plik;
+  std::fstream plik;
 
-    plik.open(nazwa);
-    if (plik.is_open() == false)
-    {
-        return false;
-    }
+  plik.open(nazwa);
+  if (plik.is_open() == false)
+  {
+    return false;
+  }
 
-    for (unsigned int i = 0; i < 8; i++)
+  for (unsigned int i = 0; i < 8; i++)
+  {
+    plik >> wektor[i];
+    if (plik.fail())
     {
-        plik >> wektor[i];
-        if (plik.fail())
-        {
-            plik.close();
-            return false;
-        }
+      plik.close();
+      return false;
     }
-    plik.close();
-    return true;
+  }
+  plik.close();
+  return true;
 }
 
 /*!
@@ -311,16 +320,14 @@ bool Prostopadloscian<double>::wczytaj(const std::string &nazwa)
  *     \param[in] this Prostopadloscian                                                                                                                 
  *     \return poprawnosc operacji                                                              
  */
-template<>
-bool Prostopadloscian<double>::owektor(Vector<double,3> &wek)
+template <>
+bool Prostopadloscian<double>::owektor(Vector<double, 3> &wek)
 {
-    if (wek.modul() == 0) return false;
-    for (unsigned int i = 0; i < 8; i++)
-    {
-        wektor[i] = wektor[i] + wek;
-    }
-    return true;
+  if (wek.modul() == 0)
+    return false;
+  for (unsigned int i = 0; i < 8; i++)
+  {
+    wektor[i] = wektor[i] + wek;
+  }
+  return true;
 }
-
-
-

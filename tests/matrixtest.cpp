@@ -77,3 +77,14 @@ TEST_CASE("GAUSS")
 
   CHECK(odp==wyznacznik);
 }
+
+TEST_CASE("GAUSS3d")
+{
+    double tab2[3][3]={2,3,-1,7,5,8,2,4,1};
+    Matrix<3> M(tab2);
+    double wyznacznik,odp=-45;
+
+    wyznacznik=M.gauss();
+
+  CHECK(odp==wyznacznik);
+}

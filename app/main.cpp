@@ -5,6 +5,10 @@
 #include "matrix.hh"
 #include "Prostopadloscian.hh"
 #include "lacze_do_gnuplota.hh"
+#include <string>
+#include <unistd.h>
+#include <stdlib.h>
+
 
 Vector<double, 3> VecPrzesu;
 Matrix<3> MROT;
@@ -15,7 +19,6 @@ void menu();
 
 int main()
 {
-       
 
        if (!cuboid.wczytaj("../datasets/orginalny.dat"))
        {
@@ -33,7 +36,6 @@ int main()
        Lacze.UstawZakresZ(-155, 155);
 
        Lacze.Rysuj();
-       
 
        std::cout << "Naciśnij ENTER, aby kontynuowac" << std::endl;
        std::cin.ignore(10000, '\n');
@@ -69,12 +71,28 @@ void menu()
               std::cin >> ilosc;
               std::cout << "Podaj os operacji: ";
               std::cin >> os;
+              MROT.Mobrot3D_tworzenie(kat, os);
+              
 
-              MROT.Mobrot3D_tworzenie(kat,os);
-
-              cuboid.obrot(kat, ilosc, os);
-              cuboid.zapis("../datasets/anim.dat");
-              Lacze.Rysuj();
+              if (ilosc > 1 && ilosc <= 720)
+              {      
+                     Lacze.Rysuj();
+                     usleep(2000000);
+                     for (int i = 0; i < ilosc; i++)
+                     {
+                            cuboid.obrot(kat, 1, os);
+                            cuboid.zapis("../datasets/anim.dat");
+                            Lacze.Rysuj();
+                            int czas = 10000000 / ilosc;
+                            usleep(czas);
+                     }
+              }
+              else
+              {
+                     cuboid.obrot(kat, ilosc, os);
+                     cuboid.zapis("../datasets/anim.dat");
+                     Lacze.Rysuj();
+              }
 
               break;
 
@@ -100,7 +118,7 @@ void menu()
 
               std::cout << MROT;
 
-        break;
+              break;
 
        case 'm':
 
@@ -109,10 +127,10 @@ void menu()
               break;
 
        case 'k':
+              std::cout << "Koniec dzialania programu.\n ";
+              return;
 
-              return ;
-
-        break;
+              break;
 
        default:
               std::cout << "Zly wybor !!! \n";
