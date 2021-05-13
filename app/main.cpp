@@ -15,8 +15,17 @@ void menu();
 
 int main()
 {
+       
 
-       Lacze.DodajNazwePliku("../datasets/orginalny.dat", PzG::RR_Ciagly, 2);
+       if (!cuboid.wczytaj("../datasets/orginalny.dat"))
+       {
+              std::cerr << "Nie udalo sie wczytac prostopadloscianu!!!\n";
+       }
+
+       cuboid.boki();
+       cuboid.zapis("../datasets/anim.dat");
+
+       Lacze.DodajNazwePliku("../datasets/anim.dat", PzG::RR_Ciagly, 2);
        Lacze.ZmienTrybRys(PzG::TR_3D);
 
        Lacze.UstawZakresY(-155, 155);
@@ -24,13 +33,7 @@ int main()
        Lacze.UstawZakresZ(-155, 155);
 
        Lacze.Rysuj();
-       if (!cuboid.wczytaj("../datasets/orginalny.dat"))
-       {
-              std::cout << "Nie udalo sie wczytac prostopadloscianu!!!\n";
-       }
-
-       cuboid.boki();
-       cuboid.zapis("../datasets/anim.dat");
+       
 
        std::cout << "Naciśnij ENTER, aby kontynuowac" << std::endl;
        std::cin.ignore(10000, '\n');
@@ -52,6 +55,7 @@ void menu()
        std::cout << "  t-wyswietlenie macierzy rotacji\n";
        std::cout << "  Twoj wybor -> :";
        std::cin >> wyb;
+       std::cout << "\n";
 
        switch (wyb)
        {
@@ -65,6 +69,8 @@ void menu()
               std::cin >> ilosc;
               std::cout << "Podaj os operacji: ";
               std::cin >> os;
+
+              MROT.Mobrot3D_tworzenie(kat,os);
 
               cuboid.obrot(kat, ilosc, os);
               cuboid.zapis("../datasets/anim.dat");
@@ -89,6 +95,12 @@ void menu()
               cuboid.zapis("../datasets/anim.dat");
               Lacze.Rysuj();
               break;
+
+       case 't':
+
+              std::cout << MROT;
+
+        break;
 
        case 'm':
 

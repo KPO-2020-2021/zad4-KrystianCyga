@@ -5,6 +5,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <stdexcept>
+#include <iomanip>
 
 #define epsilon 0.000001
 
@@ -183,6 +184,7 @@ Matrix<WYMIAR> Matrix<WYMIAR>::operator+(Matrix<WYMIAR> tmp)
 template <int WYMIAR>
 std::istream &operator>>(std::istream &in, Matrix<WYMIAR> &mat)
 {
+
     for (int i = 0; i < WYMIAR; ++i)
     {
         for (int j = 0; j < WYMIAR; ++j)
@@ -202,11 +204,12 @@ std::istream &operator>>(std::istream &in, Matrix<WYMIAR> &mat)
 template <int WYMIAR>
 std::ostream &operator<<(std::ostream &out, const Matrix<WYMIAR> &mat)
 {
+    out<<std::fixed<<std::setprecision(10);
     for (int i = 0; i < WYMIAR; ++i)
     {
         for (int j = 0; j < WYMIAR; ++j)
         {
-            out << "* " << mat(i, j) << " * "; //warto ustalic szerokosc wyswietlania dokladnosci liczb
+            out << "| " << mat(i, j) << " | "; //warto ustalic szerokosc wyswietlania dokladnosci liczb
         }
         std::cout << std::endl;
     }
@@ -252,11 +255,11 @@ Matrix<WYMIAR> Matrix<WYMIAR>::Mobrot3D_tworzenie(int kat,char os)
     value[0][1] = -sin(rad);
     value[1][0] = sin(rad);
     value[1][1] = cos(rad);
-    value[2][0] = 0;
-    value[2][1] = 0;
-    value[2][2] = 1;
-    value[0][2] = 0;
-    value[1][2] = 0;
+    value[2][0] = 0.0;
+    value[2][1] = 0.0;
+    value[2][2] = 1.0;
+    value[0][2] = 0.0;
+    value[1][2] = 0.0;
         break;
     
     

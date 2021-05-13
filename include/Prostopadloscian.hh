@@ -65,6 +65,7 @@ Vector<double, 3> Prostopadloscian<double>::operator[](const int punkt) const
  */
 std::ostream &operator<<(std::ostream &out, Prostopadloscian<double> const &prost)
 {
+    out<<std::fixed<<std::setprecision(10);
     for (unsigned int i = 0; i < 8; i++)
     {
         out << prost[i] << std::endl;
