@@ -88,3 +88,17 @@ TEST_CASE("GAUSS3d")
 
   CHECK(odp==wyznacznik);
 }
+
+TEST_CASE("transpozycja")
+{
+    double tab2[3][3]={2,3,-1,7,5,8,2,4,1};
+    double tab3[3][3]={2,7,2,3,5,4,-1,8,1};
+    Matrix<3> M1(tab2);
+    Matrix<3> M2(tab3);
+    Matrix<3> M3;
+    
+    M3=M1.transpozycja();
+    
+
+  CHECK(M3==M2);
+}

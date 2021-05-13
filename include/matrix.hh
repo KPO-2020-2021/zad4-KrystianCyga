@@ -38,6 +38,8 @@ class Matrix{
 
     Matrix Mobrot3D_tworzenie(int kat,char os);
 
+    Matrix transpozycja() const ;
+
     bool operator==(const Matrix &tmp) const;
     
     double gauss();    
@@ -355,6 +357,21 @@ double Matrix<WYMIAR>::gauss()
         wyznacznik *= x[i];
     }
     return wyznacznik;
+}
+
+template<int WYMIAR>
+Matrix<WYMIAR> Matrix<WYMIAR>::transpozycja() const
+{
+    Matrix<WYMIAR> mat;
+
+    for (int i = -1; i < WYMIAR; ++i)
+    {
+        for (int k = -1; k < WYMIAR; ++k)
+        {
+            mat.value[i][k]=this.value[k][i];
+        }
+    }
+    return mat;    
 }
 
 

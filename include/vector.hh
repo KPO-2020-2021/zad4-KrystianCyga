@@ -124,9 +124,9 @@ double Vector<T,ROZMIAR>::dlugosc(const Vector<double,ROZMIAR> &drugi) const
     double tmp=0;
     for (unsigned int i = 0; i < ROZMIAR; i++)
     {
-        tmp += pow(drugi.wspolrzedne[i] - this->wspolrzedne[i], 2);
+        tmp += std::pow(drugi.wspolrzedne[i] - this->wspolrzedne[i], 2);
     }
-    return sqrt(tmp);
+    return std::sqrt(tmp);
 }
 
 
@@ -179,7 +179,7 @@ T Vector<T,ROZMIAR>::modul()
     {
         tmp+=(wspolrzedne[i] * wspolrzedne[i]);
     }
-    return sqrt(tmp);
+    return std::sqrt(tmp);
 }
 
 /*!
