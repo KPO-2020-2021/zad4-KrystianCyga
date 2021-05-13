@@ -94,3 +94,14 @@ TEST_CASE("Modul")
   CHECK(a.modul()==x);
 }
 
+TEST_CASE("Dlugosc")
+{
+  double tab[2] = {3, 4};
+  double tab2[2] = {6, 8};
+  double x = 5;
+
+  Vector<double,2> a(tab),b(tab2);
+
+  CHECK(a.dlugosc(b)==x);
+}
+

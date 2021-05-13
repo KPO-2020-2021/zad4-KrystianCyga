@@ -1,5 +1,4 @@
-#ifndef PROSTOKAT_HH
-#define PROSTOKAT_HH
+#pragma once
 
 #include "vector.hh"
 #include <iostream>
@@ -24,15 +23,38 @@ class Prostopadloscian
 public:
   Prostopadloscian();
   void boki();
-  Prostopadloscian obrot(const double kat, const int ilosc, const int os);
-  Vector<double, 3> operator[](const int punkt);
+  Prostopadloscian obrot(const double kat, const unsigned int ilosc, const int os);
+  Vector<double, 3> operator[](const int punkt)const;
+  Vector<double, 3> &operator[](const int punkt);
   bool zapis(const std::string &nazwa) const;
   bool owektor(Vector<double, 3> &wek);
   bool wczytaj(const std::string &nazwa);
 
-  friend std::ostream &operator<<(std::ostream &out, Prostopadloscian<double> const &prost);
-  friend std::ofstream &operator<<(std::ofstream &of, Prostopadloscian<double> const &prost);
+
 };
+
+/*!
+ * \brief Metoda obrotu prostopadloscianu
+ *                                                                  
+ *     \param[in] punkt numer punktu                                                                                                                  
+ *     \return Dany punkt prostopadloscianu                                                              
+ */
+template <>
+Vector<double, 3> &Prostopadloscian<double>::operator[](const int punkt)
+{
+  return wektor[punkt];
+}
+/*!
+ * \brief Metoda obrotu prostopadloscianu
+ *                                                                  
+ *     \param[in] punkt numer punktu                                                                                                                  
+ *     \return Dany punkt prostopadloscianu                                                              
+ */
+template <>
+Vector<double, 3> Prostopadloscian<double>::operator[](const int punkt) const
+{
+  return wektor[punkt];
+}
 
 /*!
  * \brief Przeciazenie operatora <<
@@ -43,12 +65,16 @@ public:
  */
 std::ostream &operator<<(std::ostream &out, Prostopadloscian<double> const &prost)
 {
-    for (int i = 0; i < 8; i++)
+    for (unsigned int i = 0; i < 8; i++)
     {
-        out << prost.wektor[i] << std::endl;
+        out << prost[i] << std::endl;
+        if((i+1)%2==0)
+        {
+          out<<std::endl;
+        }
     }
-    out << prost.wektor[0];
-    
+    out << prost[0]<<std::endl;
+    out << prost[1]<<std::endl;
     return out;
 }
 
@@ -62,9 +88,13 @@ std::ostream &operator<<(std::ostream &out, Prostopadloscian<double> const &pros
 std::ofstream &operator<<(std::ofstream &of, Prostopadloscian<double> const &prost)
 {
     of << std::setprecision(10) << std::fixed;
-    for (int i = 0; i < 8; i++)
+    for (unsigned int i = 0; i < 8; i++)
     {
-        of << prost.wektor[i] << std::endl;
+        of << prost[i] << std::endl;
+        if((i+1)%2==0)
+        {
+          of<<std::endl;
+        }
     }
     return of;
 }
@@ -76,11 +106,11 @@ template <>
 Prostopadloscian<double>::Prostopadloscian()
 {
   int m = 0;
-  for (double i = 0; i < 4; ++i)
+  for (double i = 0; i < 2; ++i)
   {
-    for (double j = 0; j < 4; ++j)
+    for (double j = 0; j < 2; ++j)
     {
-      for (double k = 0; k < 4; ++k)
+      for (double k = 0; k < 2; ++k)
       {
         double tab[3] = {i, j,k};
         this->wektor[m].zapeln(tab);
@@ -99,15 +129,15 @@ Prostopadloscian<double>::Prostopadloscian()
  *     \return Obrocony prostopadloscian                                                              
  */
 template <>
-Prostopadloscian<double> Prostopadloscian<double>::obrot(const double kat, const int ilosc, const int os)
+Prostopadloscian<double> Prostopadloscian<double>::obrot(const double kat, const unsigned int ilosc, const int os)
 {
   Matrix<3> Mrotacji;
 
   Mrotacji.Mobrot3D_tworzenie(kat, os);
 
-  for (int j = 0; j < ilosc; j++)
+  for (unsigned int j = 0; j < ilosc; j++)
   {
-    for (int i = 0; i < 8; i++)
+    for (unsigned int i = 0; i < 8; i++)
     {
       this->wektor[i] = Mrotacji * this->wektor[i];
     }
@@ -115,26 +145,17 @@ Prostopadloscian<double> Prostopadloscian<double>::obrot(const double kat, const
 
   return *this;
 }
-/*!
- * \brief Metoda obrotu prostopadloscianu
- *                                                                  
- *     \param[in] punkt numer punktu                                                                                                                  
- *     \return Dany punkt prostopadloscianu                                                              
- */
-template <>
-Vector<double, 3> Prostopadloscian<double>::operator[](const int punkt)
-{
-  return wektor[punkt];
-}
+
 /*!
  * \brief Metoda obliczajaca i porownujaca boki prostopadloscianu.
  * Wyswietla ona te dlugosci i okresla czy sa rowne.
  *      \param[in] this Prostopadloscian 
  */
-template <>
+template<>
 void Prostopadloscian<double>::boki()
 {
   double A0, A1, A2, A3, B0, B1, B2, B3, C0, C1, C2, C3;
+  std::cout<<"COS DZIALA";
 
   A0 = wektor[0].dlugosc(wektor[1]);
   A1 = wektor[2].dlugosc(wektor[3]);
@@ -195,6 +216,7 @@ void Prostopadloscian<double>::boki()
       dlugosc1 = "Krotsze";
     }
   }
+  std::cout<<"COS DZIALA2";
   if ((abs(A0 - A1) < epsilon) && (abs(A0 - A2) < epsilon) && (abs(A0 - A3) < epsilon))
   {
     std::cout << "  " << dlugosc1 << " boki sa sobie rowne.\n";
@@ -221,7 +243,7 @@ void Prostopadloscian<double>::boki()
   }
 }
 /*!
- * \brief Metoda zapisu Prostopadlosscianu do pliku
+ * \brief Metoda zapisu Prostopadloscianu do pliku
  *                                                                  
  *     \param[in] nazwa nazwa/sciezka do pliku
 *      \param[in] this Prostopadloscian                                                                                                                   
@@ -240,6 +262,8 @@ bool Prostopadloscian<double>::zapis(const std::string &nazwa) const
 
     plik << *this;
     plik << this->wektor[0];
+    plik<<std::endl;  
+    plik << this->wektor[1];
     if (plik.fail())
     {
         plik.close();
@@ -266,7 +290,7 @@ bool Prostopadloscian<double>::wczytaj(const std::string &nazwa)
         return false;
     }
 
-    for (int i = 0; i < 8; i++)
+    for (unsigned int i = 0; i < 8; i++)
     {
         plik >> wektor[i];
         if (plik.fail())
@@ -290,7 +314,7 @@ template<>
 bool Prostopadloscian<double>::owektor(Vector<double,3> &wek)
 {
     if (wek.modul() == 0) return false;
-    for (int i = 0; i < 8; i++)
+    for (unsigned int i = 0; i < 8; i++)
     {
         wektor[i] = wektor[i] + wek;
     }
@@ -298,4 +322,4 @@ bool Prostopadloscian<double>::owektor(Vector<double,3> &wek)
 }
 
 
-#endif
+
