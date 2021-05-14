@@ -8,12 +8,20 @@
 #include <cassert>
 #define epsilon 0.000001
 
+
 /*!
- * \file
- * \brief Szablon klasy wektor.
+ * \file  vector.hh
+ *  
+ *  Plik zawiera definicję klasy vector oraz
+ *  jej opisane metody i funkcje.
+ *  
+ */
+
+/*!
+ *  \brief Szablon klasy wektor.
+ * 
  *  Jest on tablicą wspolrzednych.
  *
- * 
  */
 template <typename T,unsigned int ROZMIAR>
 class Vector

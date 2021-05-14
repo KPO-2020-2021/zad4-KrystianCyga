@@ -10,8 +10,16 @@
 #include <iomanip>
 
 /*!
- * \file
+ * \file  Prostopadloscian.hh
+ *  
+ *  Plik zawiera definicję klasy Prostopadloscian oraz
+ *  jej opisane metody i funkcje.
+ *  
+ */
+
+/*!
  * \brief Definicja Szablonu Prostopadloscianu.
+ * 
  *  Jest on postaci 8 wektorow.
  */
 template <typename T>

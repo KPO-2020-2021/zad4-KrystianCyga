@@ -10,10 +10,17 @@
 #define epsilon 0.000001
 
 
+/*!
+ * \file  matrix.hh
+ *  
+ *  Plik zawiera definicję klasy matrix oraz
+ *  jej opisane metody i funkcje.
+ *  
+ */
 
 /*!
- * \file
  * \brief Definicja Szablonu macierz.
+ * 
  *  Jest ona postaci tablicy dwuwymiarowej.
  */
 template <int WYMIAR>

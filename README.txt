@@ -4,7 +4,7 @@ Zadanie 4 czyli obrot w 3d
 
 Program dziala poprawnie.
 Wszystkie operacje wykonuja sie wlasciwie.
-Jest zaimplementowana animacja dla ilosci operacji obrotu mniejszych niz 720.
+Jest zaimplementowana ANIMACJA dla ilosci operacji obrotu mniejszych niz 720.
 Dokumentacja metod templatow i klas jest zastosowana.
 Testy dzialaja.
 Wszystko zrobione jest na templatach. Troche na sile ale zrozumialem ze mamy w tym zadaniu pokazac ze je umiemy.
@@ -19,3 +19,7 @@ Ponizej przedstawiam MENU
   k-koniec dzialania programu\n";
   r-Rysuj prostokat w Gnuplocie\n";
   t-wyswietlenie macierzy rotacji\n";
+
+  Modyfikacja wykonana.
+  Znajduje sie jej test wyswietlajacy maciez 4x4 potrzebna do obrotu.
+  Jest rowniez metoda translacji macierzy.
