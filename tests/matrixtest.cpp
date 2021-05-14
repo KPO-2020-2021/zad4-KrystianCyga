@@ -97,8 +97,24 @@ TEST_CASE("transpozycja")
     Matrix<3> M2(tab3);
     Matrix<3> M3;
     
-    M3=M1.transpozycja();
+    M3=M2.transpozycja();
+    
+  CHECK(M1==M3);
+}
+
+TEST_CASE("tworzenie macierzy obrotu 3 4x4")
+{
+    
+    Matrix<4> M;
+    double kat[3]={30,30,30};
+    int os[3]={2,2,2};
+
+
+    M.Mobrot_4x4(kat,os);
+
+  std::cout<<"Macierz obrotu 4x4:\n";
+  std::cout<<M;
     
 
-  CHECK(M3==M2);
+  CHECK(1);
 }

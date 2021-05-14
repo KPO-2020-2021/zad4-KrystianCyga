@@ -38,12 +38,15 @@ class Matrix{
 
     Matrix Mobrot3D_tworzenie(int kat,char os);
 
+    Matrix Mobrot_4x4(double kat[],int os[]);
+
     Matrix transpozycja() const ;
 
     bool operator==(const Matrix &tmp) const;
     
     double gauss();    
 };
+
 
 
 
@@ -358,21 +361,67 @@ double Matrix<WYMIAR>::gauss()
     }
     return wyznacznik;
 }
-
+/*!*****************************************************************************
+ *  \brief Metoda Transpozycji Macierzy                                       
+ *                                                             
+ *     \param[in] Macierz                                                               
+ *                                                                     
+ *    \return  Transponowana macierz                                                
+ */
 template<int WYMIAR>
 Matrix<WYMIAR> Matrix<WYMIAR>::transpozycja() const
 {
     Matrix<WYMIAR> mat;
 
-    for (int i = -1; i < WYMIAR; ++i)
+    for (int i = 0; i < WYMIAR; i++)
     {
-        for (int k = -1; k < WYMIAR; ++k)
+        for (int k = 0; k < WYMIAR; k++)
         {
-            mat.value[i][k]=this.value[k][i];
+            mat.value[k][i]=this->value[i][k];
         }
     }
     return mat;    
 }
+
+/*!*****************************************************************************
+ *  \brief Metoda tworzenia macierzy obrotu 4x4                                       
+ *                                                             
+ *     \param[in] Macierz                                                               
+ *                                                                     
+ *    \return  Macierz obrotu 4x4                                                
+ */
+template<int WYMIAR>
+Matrix<WYMIAR> Matrix<WYMIAR>::Mobrot_4x4(double kat[],int os[])
+{
+    double rad[3] ={0,0,0};
+    for (int i = 0; i < 3; i++)
+    {
+        rad[i] = kat[i] * M_PI / 180;
+    }
+
+    value[0][0] = cos(rad[0])*cos(rad[1]);
+    value[0][1] = cos(rad[0])*sin(rad[1])*sin(rad[2])-cos(rad[2])*sin(rad[0]);
+    value[0][2] = cos(rad[0])*sin(rad[1])*cos(rad[2])+sin(rad[2])*sin(rad[0]);
+    value[0][3] = os[0];
+
+    value[1][0] = sin(rad[0])*cos(rad[1]);
+    value[1][1] = sin(rad[0])*sin(rad[1])*sin(rad[2])+cos(rad[2])*cos(rad[0]);
+    value[1][2] = sin(rad[0])*sin(rad[1])*cos(rad[2])-sin(rad[2])*cos(rad[0]);
+    value[1][3] = os[1];
+
+    value[2][0] = -sin(rad[1]);
+    value[2][1] = sin(rad[2])*cos(rad[1]);
+    value[2][2] = cos(rad[1])*cos(rad[2]);
+    value[2][3] = os[2];
+
+    value[3][0] = 0;
+    value[3][1] = 0;
+    value[3][2] = 0;
+    value[3][3] = 1;
+
+    return *this;
+}
+
 
 
 #endif

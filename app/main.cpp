@@ -19,7 +19,6 @@ void menu();
 
 int main()
 {
-
        if (!cuboid.wczytaj("../datasets/orginalny.dat"))
        {
               std::cerr << "Nie udalo sie wczytac prostopadloscianu!!!\n";
